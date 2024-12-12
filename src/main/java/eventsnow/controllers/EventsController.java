@@ -5,7 +5,6 @@ import eventsnow.models.EventsModel;
 import eventsnow.repositories.EventsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,12 @@ import java.util.UUID;
 @RestController
 public class EventsController {
 
-    @Autowired
-    EventsRepository eventsRepository;
+
+    private final EventsRepository eventsRepository;
+
+    public EventsController(EventsRepository eventsRepository){
+        this.eventsRepository = eventsRepository;
+    }
 
     @PostMapping("/events")
     public ResponseEntity<EventsModel> saveEvents(@RequestBody @Valid EventsRecordDto eventsRecordDto) {
